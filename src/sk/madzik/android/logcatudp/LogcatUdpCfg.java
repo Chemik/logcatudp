@@ -24,8 +24,8 @@ public class LogcatUdpCfg extends Activity {
 	private static final int MENU_CANCEL = Menu.FIRST + 2;
 	private static final int MENU_CLR_LOG = Menu.FIRST + 3;
 	
-	private static final String DEF_SERVER = "192.168.1.10";
-	private static final int 	DEF_PORT = 10009;
+	static final String DEF_SERVER = "192.168.1.10";
+	static final int 	DEF_PORT = 10009;
 
 	private boolean cancelSave = false;
 
@@ -104,7 +104,7 @@ public class LogcatUdpCfg extends Activity {
 			@Override
 			public void onClick(View v) {
 				if (stopService()) {
-					Toast.makeText(LogcatUdpCfg.this, "Gisplan Locator service stopped", Toast.LENGTH_SHORT).show();
+					Toast.makeText(LogcatUdpCfg.this, "LogcatUdp service stopped", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
