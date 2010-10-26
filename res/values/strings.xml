@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="app_name">Logcat to UDP</string>
+<string name="send_ids">Send identificators</string>
+<string name="id">Identificator</string>
+<string name="server_port">server : port</string>
+<string name="autostart">Start service at boot</string>
+<string name="activate_service">Save and (re)start</string>
+<string name="deactivate_service">Stop</string>
+<string name="mnuSave">Save</string>
+<string name="mnuClose">Cancel/Close</string>
+<string name="mnuClear">Clear log</string>
+</resources>
