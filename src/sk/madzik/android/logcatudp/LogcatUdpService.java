@@ -1,5 +1,8 @@
 package sk.madzik.android.logcatudp;
 
+import java.net.DatagramSocket;
+import java.net.SocketException;
+
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -13,10 +16,16 @@ public class LogcatUdpService extends Service {
 	public static final String TAG = "LogcatUdpService";
 	public static boolean isRunning = false;
 
-	private boolean mSendIds;
-	private String mDevId;
-	private String mDestServer;
-	private int mDestPort;
+	class Config {
+		boolean mSendIds;
+		String mDevId;
+		String mDestServer;
+		int mDestPort;
+	}
+	private Config mConfig = null;
+
+	private DatagramSocket mSocket = null;
+	private LogcatThread mLogcatThread = null;
 
 	@Override
 	public void onCreate() {
@@ -25,17 +34,28 @@ public class LogcatUdpService extends Service {
 		Log.d(TAG, TAG+" started");
 
 		// get configuration
+		mConfig = new Config();
 		SharedPreferences settings = getSharedPreferences(LogcatUdpCfg.Preferences.PREFS_NAME, Context.MODE_PRIVATE);
-		mSendIds = settings.getBoolean(LogcatUdpCfg.Preferences.SEND_IDS, false);
+		mConfig.mSendIds = settings.getBoolean(LogcatUdpCfg.Preferences.SEND_IDS, false);
 		String android_ID = Secure.getString(this.getContentResolver(), Secure.ANDROID_ID);
 		if (TextUtils.isEmpty(android_ID))
 			android_ID = "emulator";
-		mDevId = settings.getString(LogcatUdpCfg.Preferences.DEV_ID, android_ID);
-		mDestServer = settings.getString(LogcatUdpCfg.Preferences.DEST_SERVER, LogcatUdpCfg.DEF_SERVER);
-		mDestPort = settings.getInt(LogcatUdpCfg.Preferences.DEST_PORT, LogcatUdpCfg.DEF_PORT);
+		mConfig.mDevId = settings.getString(LogcatUdpCfg.Preferences.DEV_ID, android_ID);
+		mConfig.mDestServer = settings.getString(LogcatUdpCfg.Preferences.DEST_SERVER, LogcatUdpCfg.DEF_SERVER);
+		mConfig.mDestPort = settings.getInt(LogcatUdpCfg.Preferences.DEST_PORT, LogcatUdpCfg.DEF_PORT);
 
 		// TODO: notification on statusbar
+
 		// TODO: read logcat, open udp port, send lines (thread)
+		try {
+			mSocket = new DatagramSocket();
+		} catch (SocketException e) {
+			e.printStackTrace();
+			Log.e(TAG, "Socket creation failed!");
+			stopSelf();
+		}
+		mLogcatThread  = new LogcatThread( mSocket, mConfig );
+		mLogcatThread.start();
 
 		isRunning = true;
 	}
@@ -44,6 +64,15 @@ public class LogcatUdpService extends Service {
 	public void onDestroy() {
 		super.onDestroy();
 		Log.d(TAG, TAG+" stopping.");
+		if ( mLogcatThread != null ) {
+			mLogcatThread.interrupt();
+			try {
+				mLogcatThread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				Log.w(TAG, "Joining logcat thread exception.");
+			}
+		}
 		isRunning = false;
 	}
 

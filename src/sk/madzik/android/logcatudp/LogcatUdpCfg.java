@@ -1,5 +1,7 @@
 package sk.madzik.android.logcatudp;
 
+import java.io.IOException;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -93,6 +95,7 @@ public class LogcatUdpCfg extends Activity {
 		btnActivateService.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				stopService();
 				saveSettings();
 				startService();
 				Toast.makeText(LogcatUdpCfg.this, "LogcatUdp service (re)started", Toast.LENGTH_SHORT).show();
@@ -146,7 +149,13 @@ public class LogcatUdpCfg extends Activity {
 			finish();
 			break;
 		case MENU_CLR_LOG:
-			// TODO: clear log `logcat -c`
+			try {
+				Runtime.getRuntime().exec( "logcat -c" );
+				Log.i( TAG , "Log cleared!" );
+			} catch (IOException e) {
+				Log.e( TAG, "Clearing log failed!" );
+				e.printStackTrace();
+			}
 			break;
 		}
 
@@ -188,11 +197,11 @@ public class LogcatUdpCfg extends Activity {
 		boolean autoStart = chkAutoStart.isChecked();
 
 		if (!error) {
-			boolean startserv = false;
+			/*boolean startserv = false;
 			if (LogcatUdpService.isRunning) {
 				stopService();
 				startserv = true;
-			}
+			}*/
 			editor.putBoolean(Preferences.SEND_IDS, sendIds);
 			editor.putString(Preferences.DEV_ID, devId);
 			editor.putString(Preferences.DEST_SERVER, destServer);
@@ -200,9 +209,9 @@ public class LogcatUdpCfg extends Activity {
 			editor.putBoolean(Preferences.AUTO_START, autoStart);
 			editor.commit();
 			Toast.makeText(this, "Settings saved", Toast.LENGTH_SHORT).show();
-			if (startserv) {
+			/*if (startserv) {
 				startService();
-			}
+			}*/
 		} else {
 			Toast.makeText(this, "Settings not saved!!!", Toast.LENGTH_LONG).show();
 		}
