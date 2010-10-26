@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+	<CheckBox android:text="@string/send_ids"
+			  android:id="@+id/chkSendIds"
+			  android:layout_width="wrap_content"
+			  android:layout_height="wrap_content" />
+	<TextView android:text="@string/id"
+	          android:id="@+id/lblID"
+	          android:layout_width="wrap_content"
+	          android:layout_height="wrap_content" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+		<EditText android:text=""
+		          android:id="@+id/txtID"
+		          android:layout_width="wrap_content"
+		          android:layout_height="wrap_content"
+		          android:layout_weight="1" />
+	</LinearLayout>
+	<TextView android:text="@string/server_port"
+			  android:id="@+id/lblServerPort"
+			  android:layout_width="wrap_content"
+			  android:layout_height="wrap_content" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+		<EditText android:text=""
+		          android:id="@+id/txtServer"
+		          android:layout_weight="1"
+		          android:layout_width="wrap_content"
+		          android:layout_height="wrap_content"
+		          android:inputType="textUri" />
+		<EditText android:text=""
+		          android:id="@+id/txtPort"
+		          android:layout_weight="1"
+		          android:layout_width="wrap_content"
+		          android:layout_height="wrap_content"
+		          android:inputType="numberDecimal" />
+	</LinearLayout>
+    <CheckBox
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/chkAutoStart"
+        android:visible="false"
+        android:text="@string/autostart" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <Button 
+            android:id="@+id/activateServiceBtn" 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content" 
+            android:layout_weight="1"
+            android:text="@string/activate_service" />
+        <Button 
+            android:id="@+id/deactivateServiceBtn" 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content" 
+            android:layout_weight="1"
+            android:text="@string/deactivate_service" />
+    </LinearLayout>
+</LinearLayout>
