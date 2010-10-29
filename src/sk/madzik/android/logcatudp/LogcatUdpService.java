@@ -3,6 +3,9 @@ package sk.madzik.android.logcatudp;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +29,8 @@ public class LogcatUdpService extends Service {
 
 	private DatagramSocket mSocket = null;
 	private LogcatThread mLogcatThread = null;
+	private NotificationManager mNotificationManager = null;
+	private int SERVICE_NOTIFICATION_ID = 1;
 
 	@Override
 	public void onCreate() {
@@ -44,7 +49,18 @@ public class LogcatUdpService extends Service {
 		mConfig.mDestServer = settings.getString(LogcatUdpCfg.Preferences.DEST_SERVER, LogcatUdpCfg.DEF_SERVER);
 		mConfig.mDestPort = settings.getInt(LogcatUdpCfg.Preferences.DEST_PORT, LogcatUdpCfg.DEF_PORT);
 
-		// TODO: notification on statusbar
+		// status bar notification icon manager
+		mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		int icon = R.drawable.notif_icon;
+		Notification notif = new Notification( icon, this.getString(R.string.notif_text), System.currentTimeMillis() );
+		notif.flags |= Notification.FLAG_ONGOING_EVENT;
+		notif.flags |= Notification.FLAG_NO_CLEAR;
+		notif.setLatestEventInfo(
+				getApplicationContext(),
+				this.getString(R.string.notif_text),
+				this.getString(R.string.notif_message),
+				PendingIntent.getActivity(this, 0, new Intent(this, LogcatUdpCfg.class), 0) );
+		mNotificationManager.notify( SERVICE_NOTIFICATION_ID, notif );
 
 		try {
 			mSocket = new DatagramSocket();
@@ -72,6 +88,7 @@ public class LogcatUdpService extends Service {
 				Log.w(TAG, "Joining logcat thread exception.");
 			}
 		}
+		mNotificationManager.cancelAll();
 		isRunning = false;
 	}
 

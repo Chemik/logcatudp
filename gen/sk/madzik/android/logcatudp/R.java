@@ -12,6 +12,7 @@ public final class R {
     }
     public static final class drawable {
         public static final int icon=0x7f020000;
+        public static final int notif_icon=0x7f020001;
     }
     public static final class id {
         public static final int activateServiceBtn=0x7f050007;
@@ -36,6 +37,8 @@ public final class R {
         public static final int mnuClear=0x7f040009;
         public static final int mnuClose=0x7f040008;
         public static final int mnuSave=0x7f040007;
+        public static final int notif_message=0x7f04000b;
+        public static final int notif_text=0x7f04000a;
         public static final int send_ids=0x7f040001;
         public static final int server_port=0x7f040003;
     }
