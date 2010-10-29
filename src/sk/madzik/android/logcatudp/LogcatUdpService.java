@@ -46,7 +46,6 @@ public class LogcatUdpService extends Service {
 
 		// TODO: notification on statusbar
 
-		// TODO: read logcat, open udp port, send lines (thread)
 		try {
 			mSocket = new DatagramSocket();
 		} catch (SocketException e) {
