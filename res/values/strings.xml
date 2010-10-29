@@ -11,4 +11,6 @@
 <string name="mnuSave">Save</string>
 <string name="mnuClose">Cancel/Close</string>
 <string name="mnuClear">Clear log</string>
+<string name="notif_text">LogcatUDP service running</string>
+<string name="notif_message">Configure Logcat to UDP, restart or stop sending.</string>
 </resources>

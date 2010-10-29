@@ -16,7 +16,7 @@ public class LogcatUdpReceiver extends BroadcastReceiver {
 
 		if (settings.getBoolean(LogcatUdpCfg.Preferences.AUTO_START, true)) {
 			context.startService(new Intent(context, LogcatUdpService.class));
-			Log.i(TAG, "Service Started");
+			Log.i(TAG, "Starting Service");
 		}
 	}
 }
