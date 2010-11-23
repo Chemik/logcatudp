@@ -1,3 +1,5 @@
 syntax: glob
 bin/*
+release/*
+key/*
 .*.swp
