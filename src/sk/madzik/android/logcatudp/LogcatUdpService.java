@@ -51,7 +51,7 @@ public class LogcatUdpService extends Service {
 
 		// status bar notification icon manager
 		mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		int icon = R.drawable.notif_icon;
+		int icon = R.drawable.ic_stat_notif;
 		Notification notif = new Notification( icon, this.getString(R.string.notif_text), System.currentTimeMillis() );
 		notif.flags |= Notification.FLAG_ONGOING_EVENT;
 		notif.flags |= Notification.FLAG_NO_CLEAR;
