@@ -37,6 +37,8 @@ public class LogcatUdpCfg extends Activity {
 	private EditText txtDevId;
 	private EditText txtServer;
 	private EditText txtPort;
+	private CheckBox chkUseFilter;
+	private EditText txtFilter;
 	private CheckBox chkAutoStart;
 
 	private Button btnActivateService;
@@ -50,18 +52,22 @@ public class LogcatUdpCfg extends Activity {
 		public static final String DEST_SERVER = "DestServer";
 		public static final String DEST_PORT = "DestPort";
 		public static final String AUTO_START = "AutoStart";
+		public static final String USE_FILTER = "UseFilter";
+		public static final String FILTER_TEXT = "FilterText";
 	}
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		Log.d(TAG, "started");
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
 
 		chkSendIds = (CheckBox)findViewById(R.id.chkSendIds);
 		txtDevId = (EditText)findViewById(R.id.txtID);
 		txtServer = (EditText)findViewById(R.id.txtServer);
 		txtPort = (EditText)findViewById(R.id.txtPort);
+		chkUseFilter = (CheckBox)findViewById(R.id.chkUseFilter);
+		txtFilter = (EditText)findViewById(R.id.txtFilter);
 		chkAutoStart = (CheckBox)findViewById(R.id.chkAutoStart);
 
 		mSettings = getSharedPreferences(Preferences.PREFS_NAME, MODE_PRIVATE);
@@ -90,6 +96,24 @@ public class LogcatUdpCfg extends Activity {
 		txtServer.setText(""+mSettings.getString(Preferences.DEST_SERVER, DEF_SERVER));
 		txtPort.setText(""+mSettings.getInt(Preferences.DEST_PORT, DEF_PORT));
 		chkAutoStart.setChecked(mSettings.getBoolean(Preferences.AUTO_START, true));
+
+		// set Filter log (un)checked
+		chkUseFilter.setChecked( mSettings.getBoolean(Preferences.USE_FILTER, false) );
+		// enable/disable Filter editbox
+		if ( ! chkUseFilter.isChecked() ) {
+			findViewById(R.id.lblFilter).setVisibility(View.GONE);
+			txtFilter.setVisibility(View.GONE);
+		}
+		chkUseFilter.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				findViewById(R.id.lblFilter).setVisibility( (isChecked ? View.VISIBLE : View.GONE) );
+				txtFilter.setVisibility( (isChecked ? View.VISIBLE : View.GONE) );
+			}
+		});
+
+		// set text in filter editbox
+		txtFilter.setText(""+mSettings.getString(Preferences.FILTER_TEXT, ""));
 
 		btnActivateService = (Button)findViewById(R.id.activateServiceBtn);
 		btnActivateService.setOnClickListener(new OnClickListener() {
@@ -182,7 +206,9 @@ public class LogcatUdpCfg extends Activity {
 
 		boolean sendIds = chkSendIds.isChecked();
 
-		String devId = txtDevId.getText().toString();
+		String devId = "";
+		if ( sendIds )
+			devId = txtDevId.getText().toString();
 		String destServer = txtServer.getText().toString();
 		int destPort = 0;
 		boolean error = false;
@@ -194,6 +220,11 @@ public class LogcatUdpCfg extends Activity {
 			error = true;
 		}
 
+		boolean useFilter = chkUseFilter.isChecked();
+		String filterText = "";
+		if ( useFilter )
+			filterText = txtFilter.getText().toString();
+
 		boolean autoStart = chkAutoStart.isChecked();
 
 		if (!error) {
@@ -203,9 +234,13 @@ public class LogcatUdpCfg extends Activity {
 				startserv = true;
 			}*/
 			editor.putBoolean(Preferences.SEND_IDS, sendIds);
-			editor.putString(Preferences.DEV_ID, devId);
+			if ( sendIds )
+				editor.putString(Preferences.DEV_ID, devId);
 			editor.putString(Preferences.DEST_SERVER, destServer);
 			editor.putInt(Preferences.DEST_PORT, destPort);
+			editor.putBoolean(Preferences.USE_FILTER, useFilter);
+			if ( useFilter )
+				editor.putString(Preferences.FILTER_TEXT, filterText);
 			editor.putBoolean(Preferences.AUTO_START, autoStart);
 			editor.commit();
 			Toast.makeText(this, "Settings saved", Toast.LENGTH_SHORT).show();

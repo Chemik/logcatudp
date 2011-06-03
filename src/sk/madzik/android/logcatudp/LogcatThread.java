@@ -27,7 +27,11 @@ public class LogcatThread extends Thread {
 	public void run() {
 		Log.d(TAG, "started");
 		try {
-			Process process = Runtime.getRuntime().exec( "logcat" );
+			String procString = "logcat";
+			if ( mConfig.mUseFilter && mConfig.mFilter.trim().length()>0 ) {
+				procString += " *:s " + mConfig.mFilter;
+			}
+			Process process = Runtime.getRuntime().exec( procString );
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			String logLine;
 			while ( (logLine = bufferedReader.readLine()) != null ) {

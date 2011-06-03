@@ -13,4 +13,6 @@
 <string name="mnuClear">Clear log</string>
 <string name="notif_text">LogcatUDP service running</string>
 <string name="notif_message">Configure Logcat to UDP, restart or stop sending.</string>
+<string name="usefilter">Filter log messages</string>
+<string name="filter">Filter tags (&lt;tag&gt;[:priority])</string>
 </resources>
