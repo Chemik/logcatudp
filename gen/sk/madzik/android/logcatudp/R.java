@@ -15,15 +15,20 @@ public final class R {
         public static final int ic_stat_notif=0x7f020001;
     }
     public static final class id {
-        public static final int activateServiceBtn=0x7f050007;
-        public static final int chkAutoStart=0x7f050006;
-        public static final int chkSendIds=0x7f050000;
-        public static final int deactivateServiceBtn=0x7f050008;
-        public static final int lblID=0x7f050001;
-        public static final int lblServerPort=0x7f050003;
-        public static final int txtID=0x7f050002;
-        public static final int txtPort=0x7f050005;
-        public static final int txtServer=0x7f050004;
+        public static final int activateServiceBtn=0x7f05000c;
+        public static final int chkAutoStart=0x7f05000b;
+        public static final int chkSendIds=0x7f050002;
+        public static final int chkUseFilter=0x7f050008;
+        public static final int deactivateServiceBtn=0x7f05000d;
+        public static final int layMain=0x7f050000;
+        public static final int lblFilter=0x7f050009;
+        public static final int lblID=0x7f050003;
+        public static final int lblServerPort=0x7f050005;
+        public static final int scrollview=0x7f050001;
+        public static final int txtFilter=0x7f05000a;
+        public static final int txtID=0x7f050004;
+        public static final int txtPort=0x7f050007;
+        public static final int txtServer=0x7f050006;
     }
     public static final class layout {
         public static final int main=0x7f030000;
@@ -33,6 +38,7 @@ public final class R {
         public static final int app_name=0x7f040000;
         public static final int autostart=0x7f040004;
         public static final int deactivate_service=0x7f040006;
+        public static final int filter=0x7f04000d;
         public static final int id=0x7f040002;
         public static final int mnuClear=0x7f040009;
         public static final int mnuClose=0x7f040008;
@@ -41,5 +47,6 @@ public final class R {
         public static final int notif_text=0x7f04000a;
         public static final int send_ids=0x7f040001;
         public static final int server_port=0x7f040003;
+        public static final int usefilter=0x7f04000c;
     }
 }

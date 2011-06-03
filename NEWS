@@ -1,0 +1,5 @@
+Version 0.3:
+Added optional custom filter for log messages (eg. "*:e LogcatUdpCfg:d LogcatThread:d").
+
+Version 0.2:
+Initial version.

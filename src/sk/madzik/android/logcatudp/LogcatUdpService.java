@@ -24,6 +24,8 @@ public class LogcatUdpService extends Service {
 		String mDevId;
 		String mDestServer;
 		int mDestPort;
+		boolean mUseFilter;
+		String mFilter;
 	}
 	private Config mConfig = null;
 
@@ -48,6 +50,8 @@ public class LogcatUdpService extends Service {
 		mConfig.mDevId = settings.getString(LogcatUdpCfg.Preferences.DEV_ID, android_ID);
 		mConfig.mDestServer = settings.getString(LogcatUdpCfg.Preferences.DEST_SERVER, LogcatUdpCfg.DEF_SERVER);
 		mConfig.mDestPort = settings.getInt(LogcatUdpCfg.Preferences.DEST_PORT, LogcatUdpCfg.DEF_PORT);
+		mConfig.mUseFilter = settings.getBoolean(LogcatUdpCfg.Preferences.USE_FILTER, false);
+		mConfig.mFilter = settings.getString(LogcatUdpCfg.Preferences.FILTER_TEXT, "");
 
 		// status bar notification icon manager
 		mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
