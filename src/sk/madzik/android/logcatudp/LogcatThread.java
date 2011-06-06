@@ -34,15 +34,19 @@ public class LogcatThread extends Thread {
 			Process process = Runtime.getRuntime().exec( procString );
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			String logLine;
-			while ( (logLine = bufferedReader.readLine()) != null ) {
-				String sendingLine = "";
-				if ( mConfig.mSendIds ) {
-					sendingLine = mConfig.mDevId + ": ";
+			while ( true ) {
+				// assume that log writes whole lines
+				if ( bufferedReader.ready() ) {
+					logLine = bufferedReader.readLine();
+					String sendingLine = "";
+					if ( mConfig.mSendIds ) {
+						sendingLine = mConfig.mDevId + ": ";
+					}
+					sendingLine += logLine + System.getProperty("line.separator");
+					DatagramPacket packet = new DatagramPacket(sendingLine.getBytes(), sendingLine.length(),
+							InetAddress.getByName(mConfig.mDestServer), mConfig.mDestPort);
+					mSocket.send(packet);
 				}
-				sendingLine += logLine + System.getProperty("line.separator");
-				DatagramPacket packet = new DatagramPacket(sendingLine.getBytes(), sendingLine.length(),
-						InetAddress.getByName(mConfig.mDestServer), mConfig.mDestPort);
-				mSocket.send(packet);
 				if ( isInterrupted() ) {
 					Log.d( TAG, "interupted." );
 					break;
