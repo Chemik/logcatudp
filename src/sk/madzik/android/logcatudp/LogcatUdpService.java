@@ -86,7 +86,11 @@ public class LogcatUdpService extends Service {
 		if ( mLogcatThread != null ) {
 			mLogcatThread.interrupt();
 			try {
-				mLogcatThread.join();
+				mLogcatThread.join(1000);
+				if ( mLogcatThread.isAlive() ) {
+					// TODO: Display "force close/wait" dialog
+					mLogcatThread.join();
+				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 				Log.w(TAG, "Joining logcat thread exception.");
