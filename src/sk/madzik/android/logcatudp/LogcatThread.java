@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
 
 import android.util.Log;
 import sk.madzik.android.logcatudp.LogcatUdpService.Config;
@@ -35,17 +36,22 @@ public class LogcatThread extends Thread {
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			String logLine;
 			while ( true ) {
+				String sendingLine = "";
 				// assume that log writes whole lines
 				if ( bufferedReader.ready() ) {
 					logLine = bufferedReader.readLine();
-					String sendingLine = "";
 					if ( mConfig.mSendIds ) {
 						sendingLine = mConfig.mDevId + ": ";
 					}
 					sendingLine += logLine + System.getProperty("line.separator");
 					DatagramPacket packet = new DatagramPacket(sendingLine.getBytes(), sendingLine.length(),
 							InetAddress.getByName(mConfig.mDestServer), mConfig.mDestPort);
-					mSocket.send(packet);
+					try {
+						mSocket.send(packet);
+						sendingLine = "";
+					} catch (SocketException e) {
+						// it's OK, line was remembered
+					}
 				}
 				if ( isInterrupted() ) {
 					Log.d( TAG, "interupted." );
