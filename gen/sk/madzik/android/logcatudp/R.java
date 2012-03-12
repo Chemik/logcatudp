@@ -38,15 +38,16 @@ public final class R {
         public static final int app_name=0x7f040000;
         public static final int autostart=0x7f040004;
         public static final int deactivate_service=0x7f040006;
-        public static final int filter=0x7f04000d;
+        public static final int filter=0x7f04000e;
         public static final int id=0x7f040002;
         public static final int mnuClear=0x7f040009;
         public static final int mnuClose=0x7f040008;
         public static final int mnuSave=0x7f040007;
-        public static final int notif_message=0x7f04000b;
-        public static final int notif_text=0x7f04000a;
+        public static final int mnuShare=0x7f04000a;
+        public static final int notif_message=0x7f04000c;
+        public static final int notif_text=0x7f04000b;
         public static final int send_ids=0x7f040001;
         public static final int server_port=0x7f040003;
-        public static final int usefilter=0x7f04000c;
+        public static final int usefilter=0x7f04000d;
     }
 }
