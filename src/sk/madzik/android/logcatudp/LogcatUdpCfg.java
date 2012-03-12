@@ -1,11 +1,17 @@
 package sk.madzik.android.logcatudp;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.Settings.Secure;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,6 +31,7 @@ public class LogcatUdpCfg extends Activity {
 	private static final int MENU_SAVE = Menu.FIRST + 1;
 	private static final int MENU_CANCEL = Menu.FIRST + 2;
 	private static final int MENU_CLR_LOG = Menu.FIRST + 3;
+	private static final int MENU_SHARE = Menu.FIRST + 4;
 	
 	static final String DEF_SERVER = "192.168.1.10";
 	static final int 	DEF_PORT = 10009;
@@ -43,6 +50,8 @@ public class LogcatUdpCfg extends Activity {
 
 	private Button btnActivateService;
 	private Button btnDeactivateService;
+
+	ProgressDialog prgDialog;
 
 	public class Preferences
 	{
@@ -158,6 +167,9 @@ public class LogcatUdpCfg extends Activity {
 		MenuItem mnuClear = menu.add(0, MENU_CLR_LOG, 0, getString(R.string.mnuClear) );
 		mnuClear.setIcon(android.R.drawable.ic_menu_delete);
 
+		MenuItem mnuShare = menu.add(0, MENU_SHARE, 0, getString(R.string.mnuShare) );
+		mnuShare.setIcon(android.R.drawable.ic_menu_share);
+
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -181,10 +193,44 @@ public class LogcatUdpCfg extends Activity {
 				e.printStackTrace();
 			}
 			break;
+		case MENU_SHARE:
+			prgDialog = ProgressDialog.show(this, "", "Loading log. Please wait...", true);
+			Thread checkUpdate = new Thread() {  
+				public void run() {
+					Intent intent=new Intent(android.content.Intent.ACTION_SEND);
+					intent.setType("text/plain");
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+					String androidID = Secure.getString(LogcatUdpCfg.this.getContentResolver(), Secure.ANDROID_ID);
+					intent.putExtra(Intent.EXTRA_SUBJECT, "Logcat from phone: " + androidID);
+					try {
+						Process process = Runtime.getRuntime().exec( "logcat -d" );
+						DataInputStream reader = new DataInputStream(process.getInputStream());
+						String extraText = "";
+						String ln_str;
+						while ((ln_str = reader.readLine()) != null) { 
+							extraText += ln_str + System.getProperty("line.separator"); 
+						} 
+						intent.putExtra(Intent.EXTRA_TEXT, extraText);
+						startActivity(Intent.createChooser(intent, "How do you want to share?"));
+					} catch (IOException e) {
+						Log.e( TAG, "Sharing log failed!" );
+						e.printStackTrace();
+					}
+					handler.sendEmptyMessage(0);
+				}
+			};
+			checkUpdate.start();
+			break;
 		}
 
 		return super.onOptionsItemSelected(item);
 	}
+
+	final Handler handler = new Handler() {
+		public void handleMessage(Message msg) {
+			prgDialog.dismiss();
+		}
+	};
 
 	private void startService() {
 		Intent serviceIntent = new Intent(LogcatUdpCfg.this, LogcatUdpService.class);
