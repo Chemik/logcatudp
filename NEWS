@@ -1,3 +1,9 @@
+Version 0.5:
+Added function to share log to menu (choose app which you want).
+
+Version 0.4:
+Fixed service stop after switching network providers.
+
 Version 0.3:
 Added optional custom filter for log messages (eg. "*:e LogcatUdpCfg:d LogcatThread:d").
 
