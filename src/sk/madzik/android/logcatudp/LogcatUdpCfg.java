@@ -1,9 +1,7 @@
 package sk.madzik.android.logcatudp;
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
