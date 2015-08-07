@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="log_format_array">
+        <item>@string/lf_brief</item>
+        <item>@string/lf_process</item>
+        <item>@string/lf_tag</item>
+        <item>@string/lf_raw</item>
+        <item>@string/lf_time</item>
+        <item>@string/lf_threadtime</item>
+        <item>@string/lf_long</item>
+    </string-array>
+</resources>

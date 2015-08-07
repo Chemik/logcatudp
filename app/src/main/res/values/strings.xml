@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
     <string name="app_name">Logcat to UDP</string>
-<string name="send_ids">Send identificators</string>
-<string name="id">Identificator</string>
-<string name="server_port">server : port</string>
-<string name="autostart">Start service at boot</string>
-<string name="activate_service">Save and (re)start</string>
-<string name="deactivate_service">Stop</string>
-<string name="mnuSave">Save</string>
-<string name="mnuClose">Cancel/Close</string>
-<string name="mnuClear">Clear log</string>
-<string name="mnuShare">Share log</string>
-<string name="notif_text">LogcatUDP service running</string>
-<string name="notif_message">Configure Logcat to UDP, restart or stop sending.</string>
-<string name="usefilter">Filter log messages</string>
-<string name="filter">Filter tags (&lt;tag&gt;[:priority])</string>
+    <string name="send_ids">Send identificators</string>
+    <string name="id">Identificator</string>
+    <string name="server_port">server : port</string>
+    <string name="autostart">Start service at boot</string>
+    <string name="activate_service">Save and (re)start</string>
+    <string name="deactivate_service">Stop</string>
+    <string name="mnuSave">Save</string>
+    <string name="mnuClose">Cancel/Close</string>
+    <string name="mnuClear">Clear log</string>
+    <string name="mnuShare">Share log</string>
+    <string name="notif_text">LogcatUDP service running</string>
+    <string name="notif_message">Configure Logcat to UDP, restart or stop sending.</string>
+    <string name="usefilter">Filter log messages</string>
+    <string name="filter">Filter tags (&lt;tag&gt;[:priority])</string>
+    <string name="grant_read_logs">Grant Read Logs</string>
+    <string name="log_format">Log format (see logcat help)</string>
+    <string name="lf_brief">brief</string>
+    <string name="lf_process">process</string>
+    <string name="lf_tag">tag</string>
+    <string name="lf_raw">raw</string>
+    <string name="lf_time">time</string>
+    <string name="lf_threadtime">threadtime</string>
+    <string name="lf_long">long</string>
+    <string name="lf_prompt">Choose log format</string>
 </resources>

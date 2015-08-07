@@ -1,99 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layMain"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:id="@+id/layMain"
-    android:isScrollContainer="true">
+    android:isScrollContainer="true"
+    android:orientation="vertical">
+
     <ScrollView
         android:id="@+id/scrollview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
-        <LinearLayout android:orientation="vertical"
-                      android:layout_width="fill_parent"
-                      android:layout_height="fill_parent">
-	        <CheckBox android:text="@string/send_ids"
-	                  android:id="@+id/chkSendIds"
-	                  android:layout_width="wrap_content"
-	                  android:layout_height="wrap_content" />
-	        <TextView android:text="@string/id"
-	                  android:id="@+id/lblID"
-	                  android:layout_width="wrap_content"
-	                  android:layout_height="wrap_content" />
-	        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	                      android:orientation="horizontal"
-	                      android:layout_width="fill_parent"
-	                      android:layout_height="wrap_content">
-	            <EditText android:text=""
-	                      android:id="@+id/txtID"
-	                      android:layout_width="wrap_content"
-	                      android:layout_height="wrap_content"
-	                      android:layout_weight="1" />
-	        </LinearLayout>
-	        <TextView android:text="@string/server_port"
-	                  android:id="@+id/lblServerPort"
-	                  android:layout_width="wrap_content"
-	                  android:layout_height="wrap_content" />
-	        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	                      android:orientation="horizontal"
-	                      android:layout_width="fill_parent"
-	                      android:layout_height="wrap_content">
-	            <EditText android:text=""
-	                      android:id="@+id/txtServer"
-	                      android:layout_weight="1"
-	                      android:layout_width="wrap_content"
-	                      android:layout_height="wrap_content"
-	                      android:inputType="textUri" />
-	            <EditText android:text=""
-	                      android:id="@+id/txtPort"
-	                      android:layout_weight="1"
-	                      android:layout_width="wrap_content"
-	                      android:layout_height="wrap_content"
-	                      android:inputType="numberDecimal" />
-	        </LinearLayout>
-	        <CheckBox android:layout_width="fill_parent"
-	                  android:layout_height="wrap_content"
-	                  android:id="@+id/chkUseFilter"
-	                  android:visible="false"
-	                  android:text="@string/usefilter" />
-	        <TextView android:text="@string/filter"
-	                  android:id="@+id/lblFilter"
-	                  android:layout_width="wrap_content"
-	                  android:layout_height="wrap_content" />
-   	        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	                      android:orientation="horizontal"
-	                      android:layout_width="fill_parent"
-	                      android:layout_height="wrap_content">
-	            <EditText android:text=""
-	                      android:id="@+id/txtFilter"
-	                      android:layout_width="wrap_content"
-	                      android:layout_height="wrap_content"
-	                      android:layout_weight="1" />
-	        </LinearLayout>
-	        <CheckBox
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	            android:id="@+id/chkAutoStart"
-	            android:visible="false"
-	            android:text="@string/autostart" />
-	        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	            android:orientation="horizontal"
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content">
-	            <Button
-	                android:id="@+id/activateServiceBtn"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="1"
-	                android:text="@string/activate_service" />
-	            <Button
-	                android:id="@+id/deactivateServiceBtn"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="1"
-	                android:text="@string/deactivate_service" />
-	        </LinearLayout>
-	    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/chkSendIds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/send_ids" />
+
+            <TextView
+                android:id="@+id/lblID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/id" />
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/txtID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/lblServerPort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/server_port" />
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/txtServer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="textUri"
+                    android:text="" />
+
+                <EditText
+                    android:id="@+id/txtPort"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="numberDecimal"
+                    android:text="" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/lblLogFormat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/log_format" />
+
+            <Spinner
+                android:id="@+id/spinLogFormat"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/log_format_array"
+                android:prompt="@string/lf_prompt" />
+
+            <CheckBox
+                android:id="@+id/chkUseFilter"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/usefilter"
+                android:visible="false" />
+
+            <TextView
+                android:id="@+id/lblFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter" />
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/txtFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/chkAutoStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/autostart"
+                    android:visible="false" />
+
+                <Button
+                    android:id="@+id/grantPermissionBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:text="@string/grant_read_logs" />
+
+            </LinearLayout>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/activateServiceBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/activate_service" />
+
+                <Button
+                    android:id="@+id/deactivateServiceBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/deactivate_service" />
+            </LinearLayout>
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>
