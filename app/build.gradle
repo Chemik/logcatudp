@@ -1,0 +1,19 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 4
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId "sk.madzik.android.logcatudp"
+        minSdkVersion 3
+        targetSdkVersion 4
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
