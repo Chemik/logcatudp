@@ -37,6 +37,7 @@ public class LogcatThread extends Thread {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String logLine;
             boolean socketFailed = false;
+            InetAddress destAddress = InetAddress.getByName(mConfig.mDestServer);
             while (true) {
                 String sendingLine = "";
                 // assume that log writes whole lines
@@ -47,7 +48,7 @@ public class LogcatThread extends Thread {
                     }
                     sendingLine += logLine + System.getProperty("line.separator");
                     DatagramPacket packet = new DatagramPacket(sendingLine.getBytes(), sendingLine.length(),
-                            InetAddress.getByName(mConfig.mDestServer), mConfig.mDestPort);
+                            destAddress, mConfig.mDestPort);
                     try {
                         mSocket.send(packet);
                         if (socketFailed) {
